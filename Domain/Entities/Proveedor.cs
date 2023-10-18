@@ -1,0 +1,11 @@
+
+namespace Domain.Entities;
+    public class Proveedor : BaseEntity
+    {
+        public string Nombre { get; set; }
+        public string Email { get; set; }
+        public int Telefono { get; set; }
+
+        public ICollection<Medicamento> Medicamentos { get; set; }
+        public ICollection<MedicamentoProveedor> MedicamentoProveedores { get; set; }
+    }
