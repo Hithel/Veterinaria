@@ -1,0 +1,7 @@
+Id,Nombre,Cantidad,Precio,IdLaboratorioFk
+1,Medicamento 1,50,10.99,1
+2,Medicamento 2,30,15.99,2
+3,Medicamento 3,40,12.99,1
+4,Medicamento 4,20,8.99,3
+5,Medicamento 5,35,14.99,2
+6,Medicamento 6,25,11.99,3
