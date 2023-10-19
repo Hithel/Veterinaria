@@ -39,6 +39,18 @@ public class UserController : ApiBaseController
         return mapper.Map<List<UserDto>>(entidad);
     }
 
+
+    [HttpGet]
+    [MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Pager<UserDto>>> GetPaginacion([FromQuery] Params usuarioParams)
+    {
+        var entidad = await unitofwork.Users.GetAllAsync(usuarioParams.PageIndex, usuarioParams.PageSize, usuarioParams.Search);
+        var listEntidad = mapper.Map<List<UserDto>>(entidad.registros);
+        return new Pager<UserDto>(listEntidad, entidad.totalRegistros, usuarioParams.PageIndex, usuarioParams.PageSize, usuarioParams.Search);
+    }
+
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -51,17 +63,6 @@ public class UserController : ApiBaseController
             return NotFound();
         }
         return this.mapper.Map<UserDto>(entidad);
-    }
-
-    [HttpGet("Paginado")]
-    [MapToApiVersion("1.1")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Pager<UserDto>>> GetPaginacion([FromQuery] Params usuarioParams)
-    {
-        var entidad = await unitofwork.Users.GetAllAsync(usuarioParams.PageIndex, usuarioParams.PageSize, usuarioParams.Search);
-        var listEntidad = mapper.Map<List<UserDto>>(entidad.registros);
-        return new Pager<UserDto>(listEntidad, entidad.totalRegistros, usuarioParams.PageIndex, usuarioParams.PageSize, usuarioParams.Search);
     }
 
     [HttpPut("{id}")]
