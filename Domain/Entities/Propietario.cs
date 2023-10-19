@@ -5,7 +5,7 @@ namespace Domain.Entities;
     {
         public string Nombre { get; set; }
         public string Email { get; set; }
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
 
         public ICollection<Mascota> Mascota { get; set;}
     }

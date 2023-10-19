@@ -25,7 +25,7 @@ namespace Persistence.Data.Configuration;
 
                 builder.Property(p => p.Telefono)
                 .HasColumnName("telefono")
-                .HasColumnType("int")
+                .HasColumnType("varchar")
                 .HasMaxLength(10)
                 .IsRequired();
             }

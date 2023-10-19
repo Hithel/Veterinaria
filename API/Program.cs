@@ -4,11 +4,15 @@ using API.Helpers.JWT;
 using AspNetCoreRateLimit;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Serilog;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
-
+var logger = new LoggerConfiguration()
+					.ReadFrom.Configuration(builder.Configuration)
+					.Enrich.FromLogContext()
+					.CreateLogger();
 
 
 builder.Services.AddControllers();
@@ -37,6 +41,23 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+using (var scope = app.Services.CreateScope())
+{
+	var services = scope.ServiceProvider;
+	var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+	try
+	{
+		var context = services.GetRequiredService<ApiContext>();
+		await context.Database.MigrateAsync();
+		await ApiContextSeed.SeedRolesAsync(context,loggerFactory);
+		await ApiContextSeed.SeedAsync(context,loggerFactory);
+	}
+	catch (Exception ex)
+	{
+		var _logger = loggerFactory.CreateLogger<Program>();
+		_logger.LogError(ex, "Ocurrio un error durante la migracion");
+	}
 }
 
 

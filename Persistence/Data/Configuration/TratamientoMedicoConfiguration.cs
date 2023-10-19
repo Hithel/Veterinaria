@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Data.Configuration;
-    public class TatamientoMedicoConfiguration : IEntityTypeConfiguration<TratamientoMedico>
+    public class TratamientoMedicoConfiguration : IEntityTypeConfiguration<TratamientoMedico>
         {
             public void Configure(EntityTypeBuilder<TratamientoMedico> builder)
             {
