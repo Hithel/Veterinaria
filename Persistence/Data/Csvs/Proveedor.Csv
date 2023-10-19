@@ -1,7 +1,7 @@
-Id,Nombre,Email,Telefono
-1,Proveedor1,proveedor1@example.com,123456789
-2,Proveedor2,proveedor2@example.com,987654321
-3,Proveedor3,proveedor3@example.com,555555555
-4,Proveedor4,proveedor4@example.com,111111111
-5,Proveedor5,proveedor5@example.com,999999999
-6,Proveedor6,proveedor6@example.com,444444444
+Id,Nombre,Direccion,Telefono
+1,Proveedor1,Direccion1,123456789
+2,Proveedor2,Direccion2,987654321
+3,Proveedor3,Direccion3,555555555
+4,Proveedor4,Direccion4,111111111
+5,Proveedor5,Direccion5,999999999
+6,Proveedor6,Direccion6,444444444

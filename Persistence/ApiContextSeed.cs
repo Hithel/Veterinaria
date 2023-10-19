@@ -69,7 +69,7 @@ namespace Persistence;
             } 
             if (!context.Razas.Any())
             {
-                using (var reader = new StreamReader(ruta + @"/Persistence/Data/Csvs/Raza.Csv"))
+                using (var reader = new StreamReader("../Persistence/Data/Csvs/Raza.Csv"))
                 {
                     using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
                     {
@@ -97,7 +97,7 @@ namespace Persistence;
 
            if (!context.Mascotas.Any())
             {
-                using (var reader = new StreamReader(ruta + @"/Persistence/Data/Csvs/Mascota.Csv"))
+                using (var reader = new StreamReader("../Persistence/Data/Csvs/Mascota.Csv"))
                 {
                     using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
                     {
@@ -113,10 +113,10 @@ namespace Persistence;
                             entidad.Add(new Mascota
                             {
                                 Id = item.Id,
+                                IdPropietarioFk = item.IdPropietarioFk,
+                                IdRazaFK = item.IdRazaFK,
                                 Nombre = item.Nombre,
                                 FechaNacimineto = item.FechaNacimineto,
-                                IdRazaFK = item.IdRazaFK,
-                                IdPropietarioFk = item.IdPropietarioFk
                             });
                         }
                         context.Mascotas.AddRange(entidad);
@@ -128,7 +128,7 @@ namespace Persistence;
 
             if (!context.Citas.Any())
             {
-                using (var reader = new StreamReader(ruta + @"/Persistence/Data/Csvs/Citas.Csv"))
+                using (var reader = new StreamReader("../Persistence/Data/Csvs/Citas.Csv"))
                 {
                     using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
                     {
@@ -147,7 +147,8 @@ namespace Persistence;
                                 Fecha = item.Fecha,
                                 Motivo = item.Motivo,
                                 IdMascotaFk = item.IdMascotaFk,
-                                IdVeterinarioFK = item.IdVeterinarioFK
+                                IdVeterinarioFK = item.IdVeterinarioFK,
+                                IdUserFK = item.IdUserFK
                             });
                         }
                         context.Citas.AddRange(entidad);
@@ -184,7 +185,7 @@ namespace Persistence;
 
              if (!context.Medicamentos.Any())
             {
-                using (var reader = new StreamReader(ruta + @"/Persistence/Data/Csvs/Medicamento.Csv"))
+                using (var reader = new StreamReader("../Persistence/Data/Csvs/Medicamento.Csv"))
                 {
                     using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
                     {
@@ -214,7 +215,7 @@ namespace Persistence;
 
             if (!context.MedicamentoProveedores.Any())
             {
-                using (var reader = new StreamReader(ruta + @"/Persistence/Data/Csvs/MedicamentoProveedor.Csv"))
+                using (var reader = new StreamReader("../Persistence/Data/Csvs/MedicamentoProveedor.Csv"))
                 {
                     using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
                     {
@@ -241,7 +242,7 @@ namespace Persistence;
 
             if (!context.TratamientoMedicos.Any())
             {
-                using (var reader = new StreamReader(ruta + @"/Persistence/Data/Csvs/TratamientoMedico.Csv"))
+                using (var reader = new StreamReader("../Persistence/Data/Csvs/TratamientoMedico.Csv"))
                 {
                     using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
                     {
@@ -257,8 +258,8 @@ namespace Persistence;
                             entidad.Add(new TratamientoMedico
                             {
                                 Id = item.Id,
-                                IdMedicamentoFk = item.IdMedicamentoFk,
                                 IdMascotaFK = item.IdMascotaFK,
+                                IdMedicamentoFk = item.IdMedicamentoFk,
                                 Dosis = item.Dosis,
                                 FechaAdministracion = item.FechaAdministracion,
                                 Descripcion = item.Descripcion
@@ -285,7 +286,7 @@ namespace Persistence;
 
             if (!context.Movimientos.Any())
 {
-                using (var reader = new StreamReader(ruta + @"/Persistence/Data/Csvs/Movimiento.Csv"))
+                using (var reader = new StreamReader("../Persistence/Data/Csvs/Movimiento.Csv"))
                 {
                     using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
                     {
@@ -313,7 +314,7 @@ namespace Persistence;
 
             if (!context.DetalleMovimientos.Any())
             {
-                using (var reader = new StreamReader(ruta + @"/Persistence/Data/Csvs/DetalleMovimiento.Csv"))
+                using (var reader = new StreamReader("../Persistence/Data/Csvs/DetalleMovimiento.Csv"))
                 {
                     using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
                     {
@@ -329,10 +330,11 @@ namespace Persistence;
                             entidad.Add(new DetalleMovimiento
                             {
                                 Id = item.Id,
-                                Cantidad = item.Cantidad,
-                                PrecioUnitario = item.PrecioUnitario,
                                 IdMedicamentoFk = item.IdMedicamentoFk,
-                                IdMovimientoFK = item.IdMovimientoFK
+                                Cantidad = item.Cantidad,
+                                IdMovimientoFK = item.IdMovimientoFK,
+                                PrecioUnitario = item.PrecioUnitario,
+                                Fecha = item.Fecha
                             });
                         }
                         context.DetalleMovimientos.AddRange(entidad);
@@ -343,7 +345,7 @@ namespace Persistence;
 
             if (!context.UsersRols.Any())
             {
-                using (var reader = new StreamReader(ruta + @"\Data\Csvs\rolUsuario.csv"))
+                using (var reader = new StreamReader("../Persistence/Data/Csvs/UserRol.Csv"))
                 {
                     using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
                     {

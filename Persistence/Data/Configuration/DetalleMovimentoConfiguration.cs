@@ -30,5 +30,9 @@ namespace Persistence.Data.Configuration;
                 builder.HasOne(p => p.Medicamento)
                 .WithMany(p => p.DetalleMovimientos)
                 .HasForeignKey(p => p.IdMedicamentoFk);
+
+                builder.HasOne(p => p.Movimiento)
+                .WithMany(p => p.DetalleMovimientos)
+                .HasForeignKey(p => p.IdMovimientoFK);
             }
         }
