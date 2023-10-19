@@ -33,6 +33,17 @@ namespace API.Controllers;
             return mapper.Map<List<RolDto>>(entidad);
         }
 
+        [HttpGet]
+        [MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Pager<RolDto>>> GetPaginacion([FromQuery] Params rolParams)
+        {
+            var entidad = await unitofwork.Roles.GetAllAsync(rolParams.PageIndex, rolParams.PageSize, rolParams.Search);
+            var listEntidad = mapper.Map<List<RolDto>>(entidad.registros);
+            return new Pager<RolDto>(listEntidad, entidad.totalRegistros, rolParams.PageIndex, rolParams.PageSize, rolParams.Search);
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -44,17 +55,6 @@ namespace API.Controllers;
                 return NotFound();
             }
             return this.mapper.Map<RolDto>(entidad);
-        }
-
-        [HttpGet("Paginado")]
-        [MapToApiVersion("1.1")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Pager<RolDto>>> GetPaginacion([FromQuery] Params rolParams)
-        {
-            var entidad = await unitofwork.Roles.GetAllAsync(rolParams.PageIndex, rolParams.PageSize, rolParams.Search);
-            var listEntidad = mapper.Map<List<RolDto>>(entidad.registros);
-            return new Pager<RolDto>(listEntidad, entidad.totalRegistros, rolParams.PageIndex, rolParams.PageSize, rolParams.Search);
         }
 
         [HttpPost]
