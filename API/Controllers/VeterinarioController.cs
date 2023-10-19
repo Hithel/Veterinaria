@@ -34,6 +34,32 @@ namespace API.Controllers;
             return mapper.Map<List<VeterinarioDto>>(entidad);
         }
 
+        [HttpGet("Consulta-1/{Especialidad}")]
+        [MapToApiVersion("1.0")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IEnumerable<Object>> GetEspecialidad(string Especialidad)
+        {
+            var entidad = await unitofwork.Veterinarios.GetEspecialidad(Especialidad);
+            return mapper.Map<List<Object>>(entidad);
+        }
+
+
+        
+
+        
+
+        [HttpGet]
+        [MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Pager<VeterinarioDto>>> GetPaginacion([FromQuery] Params citaParams)
+        {
+            var entidad = await unitofwork.Veterinarios.GetAllAsync(citaParams.PageIndex, citaParams.PageSize, citaParams.Search);
+            var listEntidad = mapper.Map<List<VeterinarioDto>>(entidad.registros);
+            return new Pager<VeterinarioDto>(listEntidad, entidad.totalRegistros, citaParams.PageIndex, citaParams.PageSize, citaParams.Search);
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -45,17 +71,6 @@ namespace API.Controllers;
                 return NotFound();
             }
             return this.mapper.Map<VeterinarioDto>(entidad);
-        }
-
-        [HttpGet]
-        [MapToApiVersion("1.1")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Pager<VeterinarioDto>>> GetPaginacion([FromQuery] Params citaParams)
-        {
-            var entidad = await unitofwork.Veterinarios.GetAllAsync(citaParams.PageIndex, citaParams.PageSize, citaParams.Search);
-            var listEntidad = mapper.Map<List<VeterinarioDto>>(entidad.registros);
-            return new Pager<VeterinarioDto>(listEntidad, entidad.totalRegistros, citaParams.PageIndex, citaParams.PageSize, citaParams.Search);
         }
 
         [HttpPost]
@@ -102,4 +117,6 @@ namespace API.Controllers;
             await unitofwork.SaveAsync();
             return NoContent();
         }
+
+
     }

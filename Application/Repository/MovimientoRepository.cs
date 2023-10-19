@@ -25,4 +25,22 @@ namespace Application.Repository;
             return await _context.Movimientos
             .FirstOrDefaultAsync(p =>  p.Id == id);
         }
+
+        public async Task<IEnumerable<Object>> GetInfoMovimientoMedicamento()
+        {
+            var result = await (
+                from dm in _context.DetalleMovimientos
+                join m in _context.Movimientos on dm.IdMovimientoFK equals m.Id
+                join med in _context.Medicamentos on dm.IdMedicamentoFk equals med.Id
+                select new 
+                {
+                    Id = med.Id,
+                    Nombre = med.Nombre,
+                    Cantidad = med.Cantidad,
+                    PrecioUnidad = dm.PrecioUnitario,
+                    PrecioTotal = m.PrecioTotal
+                }).ToListAsync();
+
+            return result;
+        }
     }

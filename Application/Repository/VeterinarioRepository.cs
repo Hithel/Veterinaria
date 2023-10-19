@@ -25,4 +25,19 @@ namespace Application.Repository;
             return await _context.Veterinarios
             .FirstOrDefaultAsync(p =>  p.Id == id);
         }
+
+        public  async Task<IEnumerable<Object>> GetEspecialidad(string Especialidad)
+        {
+            var result = await (
+                from v in _context.Veterinarios
+                where v.Especialidad.ToLower() == Especialidad.ToLower()
+                select new 
+                {
+                    Nombre = v.Nombre,
+                    Especialidad = v.Especialidad
+                })
+                .ToListAsync();
+
+                return result;
+        }
     }

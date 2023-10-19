@@ -25,4 +25,19 @@ namespace Application.Repository;
             return await _context.Propietarios
             .FirstOrDefaultAsync(p =>  p.Id == id);
         }
+
+        public async Task<IEnumerable<Object>> GetInfoPropietariosMascotas()
+        {
+            var result = await (
+                from p in _context.Propietarios
+                join m in _context.Mascotas on p.Id equals m.IdPropietarioFk
+                select new
+                {
+                    Propietario = p.Nombre,
+                    Mascotas = m.Nombre
+                }
+            ).ToListAsync();
+
+            return result;
+        }
     }

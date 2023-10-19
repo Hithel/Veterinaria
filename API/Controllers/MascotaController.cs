@@ -34,6 +34,46 @@ namespace API.Controllers;
             return mapper.Map<List<MascotaDto>>(entidad);
         }
 
+        [HttpGet("Consulta-3/{Especie}")]
+        [MapToApiVersion("1.0")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetInfoMascotaEspecie(string Especie)
+        {
+            var entidad = await unitofwork.Mascotas.GetInfoMascotaEspecie(Especie);
+            return mapper.Map<List<Object>>(entidad);
+        }
+
+        [HttpGet("Consulta-7")]
+        [MapToApiVersion("1.0")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetAgruparMascotaEspecie()
+        {
+            var entidad = await unitofwork.Mascotas.GetAgruparMascotaEspecie();
+            return mapper.Map<List<Object>>(entidad);
+        }
+
+        [HttpGet("Consulta-11/{Raza}")]
+        [MapToApiVersion("1.0")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetMascotasYPropietariosporRaza(string Raza)
+        {
+            var entidad = await unitofwork.Mascotas.GetMascotasYPropietariosporRaza(Raza);
+            return mapper.Map<List<Object>>(entidad);
+        }
+
+        [HttpGet("Consulta-12")]
+        [MapToApiVersion("1.0")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetCantidadMascotasRaza()
+        {
+            var entidad = await unitofwork.Mascotas.GetCantidadMascotasRaza();
+            return mapper.Map<List<Object>>(entidad);
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -34,6 +34,16 @@ namespace API.Controllers;
             return mapper.Map<List<PropietarioDto>>(entidad);
         }
 
+        [HttpGet("Consulta-4")]
+        [MapToApiVersion("1.0")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetInfoPropietariosMascotas()
+        {
+            var entidad = await unitofwork.Propietarios.GetInfoPropietariosMascotas();
+            return mapper.Map<List<Object>>(entidad);
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

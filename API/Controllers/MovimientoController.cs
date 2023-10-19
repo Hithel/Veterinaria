@@ -34,6 +34,16 @@ namespace API.Controllers;
             return mapper.Map<List<MovimientoDto>>(entidad);
         }
 
+        [HttpGet("Consulta-8")]
+        [MapToApiVersion("1.0")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetInfoMovimientoMedicamento()
+        {
+            var entidad = await unitofwork.Movimientos.GetInfoMovimientoMedicamento();
+            return mapper.Map<List<Object>>(entidad);
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

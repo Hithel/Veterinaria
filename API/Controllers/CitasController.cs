@@ -35,6 +35,27 @@ public class CitasController :  ApiBaseController
         return mapper.Map<List<CitasDto>>(entidad);
     }
 
+    [HttpGet("Consulta-6/{Motivo}")]
+    [MapToApiVersion("1.0")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<Object>>> GetInfoMascotaMotivo(string Motivo)
+    {
+        var entidad = await unitofwork.Citas.GetInfoMascotaMotivo(Motivo);
+        return mapper.Map<List<Object>>(entidad);
+    }
+
+    [HttpGet("Consulta-9/{Nombre}")]
+    [MapToApiVersion("1.0")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<Object>>> GetInfoMascotaVeterinarios(string Nombre)
+    {
+        var entidad = await unitofwork.Citas.GetInfoMascotaVeterinarios(Nombre);
+        return mapper.Map<List<Object>>(entidad);
+    }
+
+
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

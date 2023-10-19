@@ -1,7 +1,7 @@
 Id,IdMascotaFk,Fecha,Motivo,IdVeterinarioFK,IdUserFK
-1,1,2023-10-20,Cita de prueba 1,1,1
-2,2,2023-10-21,Cita de prueba 2,1,2
-3,3,2023-10-22,Cita de prueba 3,2,3
-4,4,2023-10-23,Cita de prueba 4,2,4
-5,5,2023-10-24,Cita de prueba 5,3,5
+1,1,2023-01-20,Vacunacion,1,1
+2,2,2023-10-21,Diarrea,1,2
+3,3,2023-02-22,Vacunacion,2,3
+4,4,2023-10-23,Fiebre,2,4
+5,5,2023-10-24,No Come,3,5
 6,6,2023-10-25,Cita de prueba 6,3,6

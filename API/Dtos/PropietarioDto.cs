@@ -9,5 +9,5 @@ namespace API.Dtos;
         public string Email { get; set; }
         public int Telefono { get; set; }
 
-        public List<MascotaDto> Mascota { get; set;}
+        // public List<MascotaDto> Mascota { get; set;}
     }
