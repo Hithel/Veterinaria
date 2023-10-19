@@ -42,7 +42,7 @@ public class UserService : IUserService
         {
             var rolDefault = _unitOfWork.Roles
                                     .Find(u => u.Nombre == Authorization.rol_default.ToString())
-                                    .FirstOrDefault();
+                                    .First();
             try
             {
                 user.Rols.Add(rolDefault);
