@@ -40,4 +40,29 @@ namespace Application.Repository;
 
                 return result;
         }
+
+    public async Task<(int totalRegistros, IEnumerable<object> registros)> GetEspecialidad(string Especialidad, int pageIndex, int pageSize, string search)
+    {
+        var query = from v in _context.Veterinarios
+                where v.Especialidad.ToLower() == Especialidad.ToLower()
+                select new 
+                {
+                    Nombre = v.Nombre,
+                    Especialidad = v.Especialidad
+                };
+
+            if(!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(p => p.Nombre.ToLower().Contains(search));
+            }
+
+            query = query.OrderBy(p => p.Nombre);
+            var totalRegistros = await query.CountAsync();
+            var registros = await query
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (totalRegistros, registros);
     }
+}

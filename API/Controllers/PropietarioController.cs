@@ -44,6 +44,17 @@ namespace API.Controllers;
             return mapper.Map<List<Object>>(entidad);
         }
 
+        [HttpGet("Consulta-4")]
+        [MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetInfoPropietariosMascotas([FromQuery] Params Parameters)
+        {
+            var entidad = await unitofwork.Propietarios.GetInfoPropietariosMascotas(Parameters.PageIndex, Parameters.PageSize, Parameters.Search);
+            var listEntidad = mapper.Map<List<Object>>(entidad.registros);
+            return Ok(new Pager<Object>(listEntidad, entidad.totalRegistros, Parameters.PageIndex, Parameters.PageSize, Parameters.Search));
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

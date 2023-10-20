@@ -44,6 +44,17 @@ namespace API.Controllers;
             return mapper.Map<List<Object>>(entidad);
         }
 
+        [HttpGet("Consulta-3/{Especie}")]
+        [MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetInfoMascotaEspecie(string Especie,[FromQuery] Params Parameters)
+        {
+            var entidad = await unitofwork.Mascotas.GetInfoMascotaEspecie(Especie, Parameters.PageIndex, Parameters.PageSize, Parameters.Search);
+            var listEntidad = mapper.Map<List<Object>>(entidad.registros);
+            return Ok(new Pager<Object>(listEntidad, entidad.totalRegistros, Parameters.PageIndex, Parameters.PageSize, Parameters.Search));
+        }
+
         [HttpGet("Consulta-7")]
         [MapToApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -53,6 +64,21 @@ namespace API.Controllers;
             var entidad = await unitofwork.Mascotas.GetAgruparMascotaEspecie();
             return mapper.Map<List<Object>>(entidad);
         }
+
+
+        [HttpGet("Consulta-7")]
+        [MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetAgruparMascotaEspecie([FromQuery] Params Parameters)
+        {
+            var entidad = await unitofwork.Mascotas.GetAgruparMascotaEspecie(Parameters.PageIndex, Parameters.PageSize, Parameters.Search);
+            var listEntidad = mapper.Map<List<Object>>(entidad.registros);
+            return Ok(new Pager<Object>(listEntidad, entidad.totalRegistros, Parameters.PageIndex, Parameters.PageSize, Parameters.Search));
+        }
+
+
+
 
         [HttpGet("Consulta-11/{Raza}")]
         [MapToApiVersion("1.0")]
@@ -64,6 +90,18 @@ namespace API.Controllers;
             return mapper.Map<List<Object>>(entidad);
         }
 
+
+        [HttpGet("Consulta-11/{Raza}")]
+        [MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetMascotasYPropietariosporRaza(string Raza, [FromQuery] Params Parameters)
+        {
+            var entidad = await unitofwork.Mascotas.GetMascotasYPropietariosporRaza(Raza,Parameters.PageIndex, Parameters.PageSize, Parameters.Search);
+            var listEntidad = mapper.Map<List<Object>>(entidad.registros);
+            return Ok(new Pager<Object>(listEntidad, entidad.totalRegistros, Parameters.PageIndex, Parameters.PageSize, Parameters.Search));
+        }
+
         [HttpGet("Consulta-12")]
         [MapToApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -72,6 +110,17 @@ namespace API.Controllers;
         {
             var entidad = await unitofwork.Mascotas.GetCantidadMascotasRaza();
             return mapper.Map<List<Object>>(entidad);
+        }
+
+        [HttpGet("Consulta-12")]
+        [MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetCantidadMascotasRaza([FromQuery] Params Parameters)
+        {
+            var entidad = await unitofwork.Mascotas.GetCantidadMascotasRaza(Parameters.PageIndex, Parameters.PageSize, Parameters.Search);
+            var listEntidad = mapper.Map<List<Object>>(entidad.registros);
+            return Ok(new Pager<Object>(listEntidad, entidad.totalRegistros, Parameters.PageIndex, Parameters.PageSize, Parameters.Search));
         }
 
         [HttpGet("{id}")]

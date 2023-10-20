@@ -44,10 +44,17 @@ namespace API.Controllers;
             return mapper.Map<List<Object>>(entidad);
         }
 
+        [HttpGet("Consulta-1/{Especialidad}")]
+        [MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetEspecialidad(string Especialidad, [FromQuery] Params Parameters)
+        {
 
-        
-
-        
+            var entidad = await unitofwork.Veterinarios.GetEspecialidad(Especialidad, Parameters.PageIndex, Parameters.PageSize, Parameters.Search);
+            var listEntidad = mapper.Map<List<Object>>(entidad.registros);
+            return Ok(new Pager<Object>(listEntidad, entidad.totalRegistros, Parameters.PageIndex, Parameters.PageSize, Parameters.Search));
+        }
 
         [HttpGet]
         [MapToApiVersion("1.1")]

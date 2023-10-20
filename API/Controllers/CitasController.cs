@@ -11,7 +11,7 @@ namespace API.Controllers;
 
 [ApiVersion("1.0")]
 [ApiVersion("1.1")]
-// [Authorize]
+[Authorize]
 
 
 public class CitasController :  ApiBaseController
@@ -45,6 +45,20 @@ public class CitasController :  ApiBaseController
         return mapper.Map<List<Object>>(entidad);
     }
 
+
+    [HttpGet("Consulta-6/{Motivo}")]
+    [MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<Object>>> GetInfoMascotaMotivo(string Motivo, [FromQuery] Params Parameters)
+    {
+        var entidad = await unitofwork.Citas.GetInfoMascotaMotivo(Motivo, Parameters.PageIndex, Parameters.PageSize, Parameters.Search);
+        var listEntidad = mapper.Map<List<Object>>(entidad.registros);
+        return Ok(new Pager<Object>(listEntidad, entidad.totalRegistros, Parameters.PageIndex, Parameters.PageSize, Parameters.Search));
+    }
+
+
+
     [HttpGet("Consulta-9/{Nombre}")]
     [MapToApiVersion("1.0")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -53,6 +67,17 @@ public class CitasController :  ApiBaseController
     {
         var entidad = await unitofwork.Citas.GetInfoMascotaVeterinarios(Nombre);
         return mapper.Map<List<Object>>(entidad);
+    }
+
+    [HttpGet("Consulta-9/{Nombre}")]
+    [MapToApiVersion("1.1")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<IEnumerable<Object>>> GetInfoMascotaVeterinarios(string Nombre,[FromQuery] Params Parameters)
+    {
+        var entidad = await unitofwork.Citas.GetInfoMascotaVeterinarios(Nombre, Parameters.PageIndex, Parameters.PageSize, Parameters.Search);
+        var listEntidad = mapper.Map<List<Object>>(entidad.registros);
+        return Ok(new Pager<Object>(listEntidad, entidad.totalRegistros, Parameters.PageIndex, Parameters.PageSize, Parameters.Search));
     }
 
 

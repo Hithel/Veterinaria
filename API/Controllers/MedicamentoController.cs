@@ -44,6 +44,17 @@ namespace API.Controllers;
             return mapper.Map<List<Object>>(entidad);
         }
 
+        [HttpGet("Consulta-2/{Laboratorio}")]
+        [MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetInfoMedicamentoLaboratorio(string Laboratorio, [FromQuery] Params Parameters)
+        {
+            var entidad = await unitofwork.Medicamentos.GetInfoMedicamentoLaboratorio(Laboratorio, Parameters.PageIndex, Parameters.PageSize, Parameters.Search);
+            var listEntidad = mapper.Map<List<Object>>(entidad.registros);
+            return Ok(new Pager<Object>(listEntidad, entidad.totalRegistros, Parameters.PageIndex, Parameters.PageSize, Parameters.Search));
+        }
+
         [HttpGet("Consulta-5/{Precio}")]
         [MapToApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -54,6 +65,20 @@ namespace API.Controllers;
             return mapper.Map<List<Object>>(entidad);
         }
 
+
+        [HttpGet("Consulta-5/{Precio}")]
+        [MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetInfoMedicamentoPrecio(double Precio,  [FromQuery] Params Parameters)
+        {
+            var entidad = await unitofwork.Medicamentos.GetInfoMedicamentoPrecio(Precio, Parameters.PageIndex, Parameters.PageSize, Parameters.Search);
+            var listEntidad = mapper.Map<List<Object>>(entidad.registros);
+            return Ok(new Pager<Object>(listEntidad, entidad.totalRegistros, Parameters.PageIndex, Parameters.PageSize, Parameters.Search));
+        }
+
+
+
         [HttpGet("Consulta-10/{Medicamento}")]
         [MapToApiVersion("1.0")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -62,6 +87,18 @@ namespace API.Controllers;
         {
             var entidad = await unitofwork.Medicamentos.GetInfoMedicamentoProveedor(Medicamento);
             return mapper.Map<List<Object>>(entidad);
+        }
+
+
+        [HttpGet("Consulta-10/{Medicamento}")]
+        [MapToApiVersion("1.1")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<Object>>> GetInfoMedicamentoProveedor(string Medicamento, [FromQuery] Params Parameters)
+        {
+            var entidad = await unitofwork.Medicamentos.GetInfoMedicamentoProveedor(Medicamento, Parameters.PageIndex, Parameters.PageSize, Parameters.Search);
+            var listEntidad = mapper.Map<List<Object>>(entidad.registros);
+            return Ok(new Pager<Object>(listEntidad, entidad.totalRegistros, Parameters.PageIndex, Parameters.PageSize, Parameters.Search));
         }
 
 
